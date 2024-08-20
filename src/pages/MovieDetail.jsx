@@ -31,40 +31,12 @@ export const MovieDetail = () => {
           <div>
             <div className="text-4xl text-font-primary">{data.Title}</div>
             <div className="flex pl-[3px] mt-5 text-font-secondary flex-wrap">
-              <span className="mr-5 mt-3 flex items-center justify-center">
-                IMDB Rating
-                <span className="ml-2 text-yellow-500 material-icons-outlined">
-                  star
-                </span>
-                :{data.imdbRating}
-              </span>
-              <span className="mr-5 mt-3 flex items-center justify-center">
-                IMDB Votes
-                <span className="ml-2 material-symbols-outlined">thumb_up</span>
-                :{data.imdbVotes}
-              </span>
-              <span className="mr-5 mt-3 flex items-center justify-center">
-                Runtime
-                <span className="ml-2 material-symbols-outlined">videocam</span>
-                :{data.Runtime}
-              </span>
-              <span className="mr-5 mt-3 flex items-center justify-center">
-                Year
-                <span className="ml-2 material-symbols-outlined">
-                  calendar_month
-                </span>
-                :{data.Year}
-              </span>
             </div>
             <div className="mt-5 leading-7">{data.Plot}</div>
             <div className="movie-info">
               <div>
                 <span>Director</span>
                 <span>{data.Director}</span>
-              </div>
-              <div>
-                <span>Stars</span>
-                <span>{data.Actors}</span>
               </div>
               <div>
                 <span>Genres</span>
@@ -77,6 +49,22 @@ export const MovieDetail = () => {
               <div>
                 <span>Awards</span>
                 <span>{data.Awards}</span>
+              </div>
+              <div>
+                <span>Actors</span>
+                <span>{data. Actors}</span>
+              </div>
+              <div>
+                <span>Country</span>
+                <span>{data.Country}</span>
+              </div>
+              <div>
+                <span>Writers</span>
+                <span>{data.Writer}</span>
+              </div>
+              <div>
+                <span>Released    </span>
+                <span>{data.Released}</span>
               </div>
             </div>
           </div>

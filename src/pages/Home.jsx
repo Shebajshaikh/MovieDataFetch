@@ -5,14 +5,14 @@ import { fetchAsyncMovies } from "../features";
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const movieText = "Harry";
+  const movieText = "spider";
   useEffect(() => {
     dispatch(fetchAsyncMovies(movieText));
   }, [dispatch]);
 
   return (
     <div>
-      <MovieListing />
+     <MovieListing />
     </div>
   );
 };

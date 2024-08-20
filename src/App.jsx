@@ -3,7 +3,7 @@ import { Footer, Header } from "./components";
 import { Home } from "./pages/Home";
 import { MovieDetail } from "./pages/MovieDetail";
 import { NotFound } from "./pages/NotFound";
-import "./index.css";
+import './index.css'
 
 function App() {
   return (
