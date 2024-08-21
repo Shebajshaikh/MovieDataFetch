@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAsyncMoviesOrShowsDetails,
@@ -11,7 +11,10 @@ import { TailSpin } from "react-loader-spinner";
 export const MovieDetail = () => {
   const { imdbID } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const data = useSelector(getSelectedMovieOrShow);
+  const searchTerm = location.state?.searchTerm || "";
 
   useEffect(() => {
     dispatch(fetchAsyncMoviesOrShowsDetails(imdbID));
@@ -19,6 +22,10 @@ export const MovieDetail = () => {
       dispatch(removeSelectedMovieOrShow());
     };
   }, [dispatch, imdbID]);
+
+  const handleBack = () => {
+    navigate("/", { state: { searchTerm } }); // Pass the searchTerm back to the home page
+  };
 
   return (
     <div className="flex flex-col md:flex-row lg:flex-row py-10 px-0 text-font-primary font-normal">
@@ -29,16 +36,14 @@ export const MovieDetail = () => {
       ) : (
         <>
           <div>
+            <button onClick={handleBack} className="mb-4 text-blue-500">Back to Search Results</button>
             <div className="text-4xl text-font-primary">{data.Title}</div>
             <div className="flex pl-[3px] mt-5 text-font-secondary flex-wrap">
+            
             </div>
             <div className="mt-5 leading-7">{data.Plot}</div>
             <div className="movie-info">
-              <div>
-                <span>Director</span>
-                <span>{data.Director}</span>
-              </div>
-              <div>
+            <div>
                 <span>Genres</span>
                 <span>{data.Genre}</span>
               </div>
