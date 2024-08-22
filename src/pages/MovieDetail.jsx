@@ -24,7 +24,7 @@ export const MovieDetail = () => {
   }, [dispatch, imdbID]);
 
   const handleBack = () => {
-    navigate("/", { state: { searchTerm } }); // Pass the searchTerm back to the home page
+    navigate("/", { state: { searchTerm } }); 
   };
 
   return (
@@ -36,17 +36,14 @@ export const MovieDetail = () => {
       ) : (
         <>
           <div>
-            <button onClick={handleBack} className="mb-4 text-blue-500">Back to Search Results</button>
+            
             <div className="text-4xl text-font-primary">{data.Title}</div>
             <div className="flex pl-[3px] mt-5 text-font-secondary flex-wrap">
             
             </div>
             <div className="mt-5 leading-7">{data.Plot}</div>
             <div className="movie-info">
-            <div>
-                <span>Genres</span>
-                <span>{data.Genre}</span>
-              </div>
+          
               <div>
                 <span>Languages</span>
                 <span>{data.Language}</span>
@@ -70,6 +67,10 @@ export const MovieDetail = () => {
               <div>
                 <span>Released    </span>
                 <span>{data.Released}</span>
+              </div>
+              <div>
+                <span>Collection    </span>
+                <span>{data.BoxOffice}</span>
               </div>
             </div>
           </div>
