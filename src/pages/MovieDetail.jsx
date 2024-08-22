@@ -14,7 +14,6 @@ export const MovieDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = useSelector(getSelectedMovieOrShow);
-  const searchTerm = location.state?.searchTerm || "";
 
   useEffect(() => {
     dispatch(fetchAsyncMoviesOrShowsDetails(imdbID));
@@ -23,9 +22,7 @@ export const MovieDetail = () => {
     };
   }, [dispatch, imdbID]);
 
-  const handleBack = () => {
-    navigate("/", { state: { searchTerm } }); 
-  };
+
 
   return (
     <div className="flex flex-col md:flex-row lg:flex-row py-10 px-0 text-font-primary font-normal">
