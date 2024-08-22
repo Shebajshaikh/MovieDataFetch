@@ -1,33 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { fetchAsyncMovies } from '../features';
 
 export const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const storedTerm = localStorage.getItem('searchTerm');
+    const params = new URLSearchParams(location.search);
+    const storedTerm = params.get('search');
     if (storedTerm) {
       setSearchTerm(storedTerm);
     }
-  }, []);
+  }, [location]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (searchTerm === '') return alert('Search here....');
-    localStorage.setItem('searchTerm', searchTerm);
     dispatch(fetchAsyncMovies(searchTerm));
-    navigate('/');
+    navigate({
+      pathname: '/',
+      search: `?search=${searchTerm}`,
+    });
   };
 
   const handleLogoClick = () => {
     setSearchTerm('');
-    localStorage.removeItem('searchTerm');
     dispatch(fetchAsyncMovies('spider'));
-    navigate('/');
+    navigate({
+      pathname: '/',
+      search: '',
+    });
   };
 
   return (
@@ -37,7 +43,7 @@ export const Header = () => {
           MOVIE WEBSITE
         </Link>
       </div>
-      <div className="flex-grow flex justify-center items-center">  {/* Updated this line */}
+      <div className="flex-grow flex justify-center items-center">
         <form className="flex justify-center items-center" onSubmit={submitHandler}>
           <div className="flex items-center p-4">
             <input
