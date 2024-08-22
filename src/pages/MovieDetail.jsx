@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,6 +12,7 @@ export const MovieDetail = () => {
   const { imdbID } = useParams();
   const dispatch = useDispatch();
   const data = useSelector(getSelectedMovieOrShow);
+   
 
   useEffect(() => {
     dispatch(fetchAsyncMoviesOrShowsDetails(imdbID));
@@ -31,6 +32,7 @@ export const MovieDetail = () => {
       ) : (
         <>
           <div>
+            
             
             <div className="text-4xl text-font-primary">{data.Title}</div>
             <div className="flex pl-[3px] mt-5 text-font-secondary flex-wrap">

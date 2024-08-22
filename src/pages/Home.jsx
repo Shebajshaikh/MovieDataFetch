@@ -21,6 +21,7 @@ export const Home = () => {
   
   return (
     <div>
+
       <MovieListing />
     </div>
   );

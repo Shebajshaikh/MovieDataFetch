@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { fetchAsyncMovies } from '../features';
@@ -10,16 +10,21 @@ export const Header = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const storedTerm = params.get('search');
-    if (storedTerm) {
-      setSearchTerm(storedTerm);
+    const isDetailsPage = location.pathname.includes('/movie/');
+    if (isDetailsPage) {
+      setSearchTerm('');
+    } else {
+      const params = new URLSearchParams(location.search);
+      const storedTerm = params.get('search');
+      if (storedTerm) {
+        setSearchTerm(storedTerm);
+      }
     }
   }, [location]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (searchTerm === '') return alert('Search here....');
+    if (searchTerm.trim() === '') return alert('Search term cannot be empty!');
     dispatch(fetchAsyncMovies(searchTerm));
     navigate({
       pathname: '/',
