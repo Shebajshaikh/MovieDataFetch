@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAsyncMoviesOrShowsDetails,
@@ -11,8 +11,6 @@ import { TailSpin } from "react-loader-spinner";
 export const MovieDetail = () => {
   const { imdbID } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
   const data = useSelector(getSelectedMovieOrShow);
 
   useEffect(() => {
