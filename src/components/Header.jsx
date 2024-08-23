@@ -9,18 +9,21 @@ export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const isDetailsPage = location.pathname.includes('/movie/');
-    if (isDetailsPage) {
-      setSearchTerm('');
-    } else {
-      const params = new URLSearchParams(location.search);
-      const storedTerm = params.get('search');
-      if (storedTerm) {
-        setSearchTerm(storedTerm);
-      }
+ useEffect(() => {
+  const params = new URLSearchParams(location.search);
+  const storedTerm = params.get('search');
+  if(location.pathname.includes('/movie/')){
+    setSearchTerm('');
+  }
+  else{
+    if(storedTerm){
+      setSearchTerm(storedTerm);
     }
-  }, [location]);
+    else if(storedTerm === null){
+      setSearchTerm('');
+    }
+  }
+ }, [location]);
 
   const submitHandler = (e) => {
     e.preventDefault();
