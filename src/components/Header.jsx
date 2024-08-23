@@ -9,21 +9,21 @@ export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
- useEffect(() => {
-  const params = new URLSearchParams(location.search);
-  const storedTerm = params.get('search');
-  if(location.pathname.includes('/movie/')){
-    setSearchTerm('');
-  }
-  else{
-    if(storedTerm){
-      setSearchTerm(storedTerm);
-    }
-    else if(storedTerm === null){
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const storedTerm = params.get('search');
+    if (location.pathname.includes('/movie/')) {
       setSearchTerm('');
     }
-  }
- }, [location]);
+    else {
+      if (storedTerm) {
+        setSearchTerm(storedTerm);
+      }
+      else if (storedTerm === null) {
+        setSearchTerm('');
+      }
+    }
+  }, [location]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ export const Header = () => {
       </div>
       <div className="flex-grow flex justify-center items-center">
         <form className="flex justify-center items-center" onSubmit={submitHandler}>
-          <div className="flex items-center p-4">
+          <div className=" flex items-center p-4">
             <input
               className="text-lg px-4 py-2 h-10 rounded-l-full focus:border-blue-500 outline-none shadow-md transition-all duration-300 ease-in-out transform focus:scale-105 focus:shadow-lg placeholder-gray-500 text-gray-700"
               type="text"

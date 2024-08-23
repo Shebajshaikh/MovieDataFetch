@@ -17,7 +17,7 @@ export const fetchAsyncMovies = createAsyncThunk(
   }
 );
 
-export const fetchAsyncMoviesOrShowsDetails = createAsyncThunk(
+export const fetchAsyncMoviesDetails = createAsyncThunk(
   "movies/fetchAsyncMoviesOrShowsDetails",
   async (id, { rejectWithValue }) => {
     try {
@@ -56,10 +56,10 @@ const movieSlice = createSlice({
         state.isLoading = false;
         state.error = payload;
       })
-      .addCase(fetchAsyncMoviesOrShowsDetails.fulfilled, (state, { payload }) => {
+      .addCase(fetchAsyncMoviesDetails.fulfilled, (state, { payload }) => {
         state.selectedMovieOrShow = payload;
       })
-      .addCase(fetchAsyncMoviesOrShowsDetails.rejected, (state, { payload }) => {
+      .addCase(fetchAsyncMoviesDetails.rejected, (state, { payload }) => {
         state.error = payload;
       });
   },
