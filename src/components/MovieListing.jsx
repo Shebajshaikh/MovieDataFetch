@@ -1,23 +1,16 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { getAllMovies, getLoaderInfo, getErrorInfo } from "../features/movies/movieSlice";
-import { MovieCard } from "./MovieCard";
-import { TailSpin } from "react-loader-spinner";
+import React from 'react';
+import { MovieCard } from './MovieCard';
+import { TailSpin } from 'react-loader-spinner';
 
-export const MovieListing = () => {
-  const movies = useSelector(getAllMovies);
-  const isLoading = useSelector(getLoaderInfo);
-  const error = useSelector(getErrorInfo);
-  const searchTerm = new URLSearchParams(window.location.search).get('search') || 'spider';
-  const shouldShowHeading = searchTerm !== 'spider' && !isLoading && !error && movies.length > 0;
+export const MovieListing = ({ searchTerm, isLoading, error, movies, isManualSearch }) => {
+  console.log('Movies in Listing:', movies);
 
   return (
     <div className="my-5 mx-0">
-      {shouldShowHeading && (
+      {isManualSearch && searchTerm && !isLoading && !error && movies.length > 0 && (
         <h1 className="search-results-heading text-2xl font-extrabold text-white text-center">
           Search Results
         </h1>
-
       )}
       {isLoading && <TailSpin color="#00BFFF" height={90} width={50} />}
       {error && (
@@ -25,10 +18,17 @@ export const MovieListing = () => {
           Oops, Movie Not Found. Try Another Movie Name.
         </div>
       )}
-      {!isLoading && !error && (
-        <div className="grid-layout">
+      {!isLoading && !error && movies.length === 0 && (
+        <div className="text-center text-gray-500 text-xl my-5">
+          No movies found. Try another movie name.
+        </div>
+      )}
+      {!isLoading && !error && movies.length > 0 && (
+        <div className="grid-layout" style={{ display: 'flex', flexWrap: 'wrap' }}>
           {movies.map((movie) => (
-            <MovieCard key={movie.imdbID} data={movie} />
+            <div key={movie.imdbID} style={{ margin: '10px' }}>
+              <MovieCard data={movie} />
+            </div>
           ))}
         </div>
       )}

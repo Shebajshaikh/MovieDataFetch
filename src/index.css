@@ -28,7 +28,6 @@ select {
 }
 
 @layer utilities {
-  /* It allows limiting the contents of a block container to a specified number of lines */
   .line-clamp {
     display: -webkit-box;
     -webkit-box-orient: vertical;

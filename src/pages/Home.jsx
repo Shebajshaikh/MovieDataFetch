@@ -1,28 +1,35 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { fetchAsyncMovies, getAllMovies } from "../features";
-import { MovieListing } from "../components";
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchMoviesQuery } from '../features/apiSlice';
+import { MovieListing } from '../components/MovieListing';
 
 export const Home = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
+  const { search } = useLocation();
+  const navigate = useNavigate();
+  const searchTermFromURL = new URLSearchParams(search).get('search');
+  const searchTerm = searchTermFromURL || 'spider';
+
+  // Determine if the search is manual
+  const isManualSearch = searchTermFromURL || searchTerm !== 'spider';
+
+  const { data: movies = [], isLoading, error } = useSearchMoviesQuery(searchTerm);
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const searchTerm = params.get('search');
-    if (searchTerm) {
-      dispatch(fetchAsyncMovies(searchTerm));
-    } else {
-      dispatch(fetchAsyncMovies('spider'));
+    // Update URL if the search term is different from the one in the URL
+    if (!searchTermFromURL && searchTerm !== 'spider') {
+      navigate(`?search=${searchTerm}`, { replace: true });
     }
-  }, [dispatch, location]);
+  }, [navigate, searchTerm, searchTermFromURL]);
 
-  
   return (
     <div>
-
-      <MovieListing />
+      <MovieListing
+        movies={movies.Search || []}
+        isLoading={isLoading}
+        error={error}
+        searchTerm={searchTerm}
+        isManualSearch={isManualSearch}
+      />
     </div>
   );
 };
